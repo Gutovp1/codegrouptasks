@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Code</title>
+    <button class="getHeroes" onclick="getHeroes()">Get Heroes</button>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <script>
+      const apikey = "0810b7a8b6ac4eb5bf6e267fda1141cd";
+
+      function getHeroes() {
+        axios
+          .get("https://gateway.marvel.com/v1/public/characters", {
+            params: { apikey },
+          })
+          .then((result) => {
+            console.log(result);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    </script>
+  </head>
+  <body></body>
+</html>
