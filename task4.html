@@ -6,12 +6,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Code</title>
     <button class="getHeroes" onclick="getHeroes()">Get Heroes</button>
+    <table>
+      <thead>
+        <td>id</td>
+        <td>name</td>
+        <td>description</td>
+      </thead>
+      <tbody class="tbody"></tbody>
+    </table>
 
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
     <script>
       const apikey = "0810b7a8b6ac4eb5bf6e267fda1141cd";
       let heroes = [];
+
+      function listHeroes() {
+        const tb = document.querySelector(".tbody");
+        let lines = heroes.map((hero) => {
+          let tr = document.createElement("tr");
+          let tdId = document.createElement("td");
+          tdId.textContent = hero.id;
+          let tdName = document.createElement("td");
+          tdName.textContent = hero.name;
+          let tdDesc = document.createElement("td");
+          tdDesc.textContent = hero.description;
+          tr.appendChild(tdId);
+          tr.appendChild(tdName);
+          tr.appendChild(tdDesc);
+          return tr;
+        });
+        tb.append(...lines);
+      }
+
       function getHeroes() {
         axios
           .get("https://gateway.marvel.com/v1/public/characters", {
@@ -20,6 +47,7 @@
           .then((response) => {
             heroes = response.data.data.results;
             console.log(heroes);
+            listHeroes();
           })
           .catch((err) => {
             console.log(err);
